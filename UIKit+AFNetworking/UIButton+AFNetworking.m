@@ -157,6 +157,8 @@ static const char * af_backgroundImageRequestOperationKeyForState(UIControlState
         placeholderImage:(UIImage *)placeholderImage
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
 
     [self setImageForState:state withURLRequest:request placeholderImage:placeholderImage success:nil failure:nil];
@@ -223,6 +225,8 @@ static const char * af_backgroundImageRequestOperationKeyForState(UIControlState
                   placeholderImage:(UIImage *)placeholderImage
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    //Security Fix: prevent uploading of data with POST
+    [request setHTTPMethod:@"POST"];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
 
     [self setBackgroundImageForState:state withURLRequest:request placeholderImage:placeholderImage success:nil failure:nil];

@@ -608,10 +608,14 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
             if (self.credential) {
                 [[challenge sender] useCredential:self.credential forAuthenticationChallenge:challenge];
             } else {
-                [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+                //Security Fix: Do not let unverfied challenges through
+                [[challenge sender] cancelAuthenticationChallenge:challenge];
+                //[[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
             }
         } else {
-            [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+            //Security Fix: Do not let unverfied challenges through
+            [[challenge sender] cancelAuthenticationChallenge:challenge];
+            //[[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
         }
     }
 }

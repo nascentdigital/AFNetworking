@@ -137,6 +137,9 @@ typedef NS_ENUM(NSUInteger, AFHTTPRequestQueryStringSerializationStyle) {
  */
 + (instancetype)serializer;
 
+
+
+
 /**
  Sets the value for the HTTP headers set in request objects made by the HTTP client. If `nil`, removes the existing value for that header.
 

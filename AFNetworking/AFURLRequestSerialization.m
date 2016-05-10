@@ -199,6 +199,8 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
                     stringEncoding:(NSStringEncoding)encoding;
 
 - (NSMutableURLRequest *)requestByFinalizingMultipartFormData;
+
+- (void) dealloc;
 @end
 
 #pragma mark -
@@ -289,6 +291,7 @@ static void *AFHTTPRequestSerializerObserverContext = &AFHTTPRequestSerializerOb
             [self removeObserver:self forKeyPath:keyPath context:AFHTTPRequestSerializerObserverContext];
         }
     }
+
 }
 
 #pragma mark -
@@ -717,6 +720,15 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
     self.bodyStream = [[AFMultipartBodyStream alloc] initWithStringEncoding:encoding];
 
     return self;
+}
+
+//Security Fix
+- (void)dealloc
+{
+    if (self.bodyStream != nil)
+    {
+        [self.bodyStream close];
+    }
 }
 
 - (BOOL)appendPartWithFileURL:(NSURL *)fileURL

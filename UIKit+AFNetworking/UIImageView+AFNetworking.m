@@ -114,6 +114,9 @@
        placeholderImage:(UIImage *)placeholderImage
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    //Security Fix: Prevent loading of data with get
+    [request setHTTPMethod:@"POST"];
+
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
 
     [self setImageWithURLRequest:request placeholderImage:placeholderImage success:nil failure:nil];
